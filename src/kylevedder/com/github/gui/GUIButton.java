@@ -5,9 +5,10 @@
  */
 package kylevedder.com.github.gui;
 
-import org.newdawn.slick.gui.AbstractComponent;
-import org.newdawn.slick.gui.ComponentListener;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.gui.TextField;
+import org.newdawn.slick.gui.MouseOverArea;
 
 /**
  *
@@ -16,17 +17,29 @@ import org.newdawn.slick.gui.TextField;
 public class GUIButton
 {
     private GUIRectangle rect;
-    private GUIMouseOverText text;
+    private GUIMouseOverContent content;
     private TextField field = null;
+    private MouseOverArea area = null;
+    
+    private GameContainer gc = null;
+    
 
-    public GUIButton(float centerX, float centerY, float width, float height, GUIMouseOverText text)
+    public GUIButton(GameContainer gc, float centerX, float centerY, float width, float height, GUIMouseOverContent content)
     {
+        this.gc = gc;        
         this.rect = new GUIRectangle(centerX, centerY, width, height);
-        this.text = text;
-        
+        this.content = content;
+        this.area = new MouseOverArea(gc, this.content.getBaseImage(), this.rect.getRectangle());
     }
     
     
-    
+    /**
+     * Renders the GUIButton
+     * @param g 
+     */
+    public void render(Graphics g)
+    {
+        this.area.render(gc, g);
+    }
     
 }

@@ -20,8 +20,8 @@ public class MainApp extends BasicGame
     
     public static final int NUM_COLLISION_UPDATES = 16;
     
-    public static final int WINDOW_WIDTH = 1280;
-    public static final int WINDOW_HEIGHT = 720;
+    public static final int WINDOW_WIDTH = 800;
+    public static final int WINDOW_HEIGHT = 600;
     
     public static final boolean DEBUG = true;
     public static AppGameContainer app;

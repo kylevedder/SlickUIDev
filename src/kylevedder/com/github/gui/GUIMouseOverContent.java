@@ -5,19 +5,25 @@
  */
 package kylevedder.com.github.gui;
 
+import org.newdawn.slick.Image;
+
 /**
  *
  * @author Kyle
  */
-public class GUIMouseOverText
+public class GUIMouseOverContent
 {
     private String baseText;
     private String hoverText;
+    private Image baseImage;
+    private Image hoverImage;
 
-    public GUIMouseOverText(String baseText, String hoverText)
+    public GUIMouseOverContent(String baseText, String hoverText, Image baseImage, Image hoverImage)
     {
         this.baseText = baseText;
         this.hoverText = hoverText;
+        this.baseImage = baseImage;
+        this.hoverImage = hoverImage;
     }
 
     public String getBaseText()
@@ -28,6 +34,16 @@ public class GUIMouseOverText
     public String getHoverText()
     {
         return hoverText;
+    }
+
+    public Image getBaseImage()
+    {
+        return baseImage;
+    }
+
+    public Image getHoverImage()
+    {
+        return hoverImage;
     }
     
     

@@ -8,10 +8,13 @@ package kylevedder.com.github.main;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.TextField;
+import org.newdawn.slick.gui.MouseOverArea;
 
 /**
  *
@@ -28,7 +31,7 @@ public class GameEngine
     final float PLAYER_START_X = 500f;
     final float PLAYER_START_Y = 500f;
     final float PLAYER_START_ANGLE = 0f;
-    
+
     final int TEAM_SIZE = 4;
 
     private float tankAngleAppend = 0;
@@ -36,6 +39,7 @@ public class GameEngine
 
     TextField field;
     TextField field2;
+    MouseOverArea area;
 
     public GameEngine()
     {
@@ -50,21 +54,9 @@ public class GameEngine
      */
     public void init(GameContainer gc) throws SlickException
     {
-        String message = "";
-        field = new TextField(gc, gc.getDefaultFont(), 150,20,500,35, new ComponentListener() {
-			public void componentActivated(AbstractComponent source) {
-				String message = "Entered1: "+field.getText();
-				field2.setFocus(true);
-			}
-		});
-        
-        field2 = new TextField(gc, gc.getDefaultFont(), 150,70,500,35,new ComponentListener() {
-			public void componentActivated(AbstractComponent source) {
-				String message = "Entered2: "+field2.getText();
-				field.setFocus(true);
-			}
-		});
-        
+
+        area = new MouseOverArea(gc, new Image("images/ball.png").getScaledCopy(5), new Rectangle(20, 20, 20, 20));
+        area.setNormalImage(new Image("images/ball.png").getScaledCopy(3));
         System.out.println("Game Loaded...");
     }
 
@@ -76,10 +68,7 @@ public class GameEngine
      * @throws SlickException
      */
     public void update(GameContainer gc, int deltaTime) throws SlickException
-    {
-
-       
-
+    {        
     }
 
     /**
@@ -94,9 +83,6 @@ public class GameEngine
         g.clear();
         //backgrond
         g.setBackground(new Color(103, 194, 240));
-        
-        field.render(gc, g);
-		field2.render(gc, g);
-        
+        area.render(gc, g);
     }
 }
