@@ -36,7 +36,7 @@ public class MainApp extends BasicGame
 
     /**
      * Initialization of the main game container
-     * @return New Game Container
+     * @return New Game Container  
      * @throws SlickException 
      */
     private static AppGameContainer initApp(String title) throws SlickException

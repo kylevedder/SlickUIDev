@@ -9,6 +9,9 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.gui.AbstractComponent;
+import org.newdawn.slick.gui.ComponentListener;
+import org.newdawn.slick.gui.TextField;
 
 /**
  *
@@ -31,7 +34,8 @@ public class GameEngine
     private float tankAngleAppend = 0;
     private float tankSpeed = 0;
 
-    
+    TextField field;
+    TextField field2;
 
     public GameEngine()
     {
@@ -46,6 +50,20 @@ public class GameEngine
      */
     public void init(GameContainer gc) throws SlickException
     {
+        String message = "";
+        field = new TextField(gc, gc.getDefaultFont(), 150,20,500,35, new ComponentListener() {
+			public void componentActivated(AbstractComponent source) {
+				String message = "Entered1: "+field.getText();
+				field2.setFocus(true);
+			}
+		});
+        
+        field2 = new TextField(gc, gc.getDefaultFont(), 150,70,500,35,new ComponentListener() {
+			public void componentActivated(AbstractComponent source) {
+				String message = "Entered2: "+field2.getText();
+				field.setFocus(true);
+			}
+		});
         
         System.out.println("Game Loaded...");
     }
@@ -76,6 +94,9 @@ public class GameEngine
         g.clear();
         //backgrond
         g.setBackground(new Color(103, 194, 240));
+        
+        field.render(gc, g);
+		field2.render(gc, g);
         
     }
 }
