@@ -27,21 +27,25 @@ public class StateExitMenu implements BasicState
     GUIButton mainMenuButton;
     private StateManager stateManager = null;
 
+    private final float BUTTON_SEPERATOR_WIDTH = 10f;
+
     public void init(GameContainer gc, StateManager stateManager) throws SlickException
     {
         this.stateManager = stateManager;
-        fontLoader = new FontLoader("font/youre-gone/YoureGone.ttf", 128f);
+        fontLoader = new FontLoader("font/expressway/expressway.ttf", 128f);
 
-        GUIMouseOverContent exitContent = new GUIMouseOverContent("Exit", "Exit!", "images/buttons/normal.png", "images/buttons/hover.png", "images/buttons/click.png");
-        GUIMouseOverContent mainMenuContent = new GUIMouseOverContent("Main Menu", "Main Menu!", "images/buttons/normal.png", "images/buttons/hover.png", "images/buttons/click.png");
+        GUIMouseOverContent exitContent = new GUIMouseOverContent("Exit", "Exit", "images/buttons/normal.png", "images/buttons/hover.png", "images/buttons/hover.png");
+        GUIMouseOverContent mainMenuContent = new GUIMouseOverContent("Main Menu", "Main Menu", "images/buttons/normal.png", "images/buttons/hover.png", "images/buttons/hover.png");
 
-        exitButton = new GUIButton(gc, MainApp.WINDOW_WIDTH / 2 - exitContent.getBaseImage().getWidth(), MainApp.WINDOW_HEIGHT / 2, exitContent.getBaseImage().getWidth(), exitContent.getBaseImage().getHeight(), exitContent);
-        exitButton.setFont(fontLoader.getSizedFont(12f), fontLoader.getSizedFont(18f));
+        exitButton = new GUIButton(gc, MainApp.WINDOW_WIDTH / 2 - exitContent.getBaseImage().getWidth() / 2 - BUTTON_SEPERATOR_WIDTH / 2, MainApp.WINDOW_HEIGHT / 2, exitContent.getBaseImage().getWidth(), exitContent.getBaseImage().getHeight(), exitContent);
+        exitButton.setFont(fontLoader.getSizedFont(32f), fontLoader.getSizedFont(32f));
         exitButton.setFontColors(java.awt.Color.yellow, java.awt.Color.yellow);
+        exitButton.setTextPadding(0, -5);
 
-        mainMenuButton = new GUIButton(gc, MainApp.WINDOW_WIDTH / 2 + mainMenuContent.getBaseImage().getWidth(), MainApp.WINDOW_HEIGHT / 2, mainMenuContent.getBaseImage().getWidth(), mainMenuContent.getBaseImage().getHeight(), mainMenuContent);
-        mainMenuButton.setFont(fontLoader.getSizedFont(12f), fontLoader.getSizedFont(18f));
+        mainMenuButton = new GUIButton(gc, MainApp.WINDOW_WIDTH / 2 + mainMenuContent.getBaseImage().getWidth() / 2 + BUTTON_SEPERATOR_WIDTH / 2, MainApp.WINDOW_HEIGHT / 2, mainMenuContent.getBaseImage().getWidth(), mainMenuContent.getBaseImage().getHeight(), mainMenuContent);
+        mainMenuButton.setFont(fontLoader.getSizedFont(32f), fontLoader.getSizedFont(32f));
         mainMenuButton.setFontColors(java.awt.Color.yellow, java.awt.Color.yellow);
+        mainMenuButton.setTextPadding(0, -5);
     }
 
     public void update(GameContainer gc, int deltaTime) throws SlickException
@@ -49,8 +53,8 @@ public class StateExitMenu implements BasicState
         if (exitButton.isButtonClicked())
         {
             System.exit(0);
-        }        
-        if(mainMenuButton.isButtonClicked())
+        }
+        if (mainMenuButton.isButtonClicked())
         {
             mainMenuButton.resetButtonClicked();
             stateManager.setState(State.MENU);
