@@ -11,7 +11,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.util.ResourceLoader;
 
 /**
@@ -21,9 +24,10 @@ import org.newdawn.slick.util.ResourceLoader;
 public class FontLoader
 {
 
-    private TrueTypeFont ttFont = null;
+    private UnicodeFont uFont = null;
     private Font awtFont = null;
 
+    @SuppressWarnings("unchecked")//STFU about the add ColorEffect
     public FontLoader(String fontPath, float defaultSize)
     {
         InputStream inputStream = ResourceLoader.getResourceAsStream(fontPath);
@@ -31,6 +35,11 @@ public class FontLoader
         try
         {
             awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            awtFont = awtFont.deriveFont(defaultSize);
+            uFont = new UnicodeFont(awtFont);
+            uFont.getEffects().add(new ColorEffect(java.awt.Color.yellow));
+            uFont.addAsciiGlyphs();
+            uFont.loadGlyphs();
         }
         catch (FontFormatException ex)
         {
@@ -40,12 +49,10 @@ public class FontLoader
         {
             Logger.getLogger(FontLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        if (awtFont != null)
+        catch (SlickException ex)
         {
-            awtFont = awtFont.deriveFont(defaultSize); // set font size
-            ttFont = new TrueTypeFont(awtFont, true);
-        }
+            Logger.getLogger(FontLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }        
     }
 
     /**
@@ -55,9 +62,9 @@ public class FontLoader
      *
      * @return
      */
-    public TrueTypeFont getFont()
+    public UnicodeFont getFont()
     {
-        return this.ttFont;
+        return this.uFont;
     }
 
     /**
@@ -68,11 +75,11 @@ public class FontLoader
      * @param size
      * @return
      */
-    public TrueTypeFont getSizedFont(float size)
+    public UnicodeFont getSizedFont(float size)
     {
         if (awtFont != null)
         {
-            return new TrueTypeFont(awtFont.deriveFont(32f), true);
+            return new UnicodeFont(awtFont.deriveFont(32f));
         }
         else
         {

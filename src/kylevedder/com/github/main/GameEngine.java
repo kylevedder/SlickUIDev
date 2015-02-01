@@ -50,9 +50,7 @@ public class GameEngine
     TextField field2;
     MouseOverArea area;
 
-    FontLoader fontLoader = null;
-    UnicodeFont ufont = null;
-    Font awtFont = null;
+    FontLoader fontLoader = null;    
 
     public GameEngine()
     {
@@ -66,32 +64,8 @@ public class GameEngine
      * @throws SlickException
      */
     public void init(GameContainer gc) throws SlickException
-    {
-        InputStream inputStream = ResourceLoader.getResourceAsStream("font/expressway/expressway.ttf");
-
-        try
-        {
-            awtFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-        }
-        catch (FontFormatException ex)
-        {
-            Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch (IOException ex)
-        {
-            Logger.getLogger(GameEngine.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        if (awtFont != null)
-        {
-            awtFont = awtFont.deriveFont(256f); // set font size
-            ufont = new UnicodeFont(awtFont);
-            ufont.getEffects().add(new ColorEffect(java.awt.Color.yellow));
-            ufont.addAsciiGlyphs();
-            ufont.loadGlyphs();
-        }
-
-        fontLoader = new FontLoader("font/expressway/expressway.ttf", 64f);
+    {       
+        fontLoader = new FontLoader("font/expressway/expressway.ttf", 256f);
         area = new MouseOverArea(gc, new Image("images/ball.png").getScaledCopy(5), new Rectangle(20, 20, 20, 20));
         area.setNormalImage(new Image("images/ball.png").getScaledCopy(3));
 
@@ -122,9 +96,9 @@ public class GameEngine
         //backgrond
         g.setBackground(new Color(103, 194, 240));
         g.setColor(Color.red);
-        ufont.drawString(100, 100, "Hello");
+        
 //        g.drawString("Hello", MainApp.WINDOW_WIDTH/2,  MainApp.WINDOW_HEIGHT/2);
-//        fontLoader.getFont().drawString(MainApp.WINDOW_WIDTH / 2 - fontLoader.getFont().getWidth("Hello") / 2, MainApp.WINDOW_HEIGHT / 2 - fontLoader.getFont().getHeight("Hello") / 2, "Hello");
+        fontLoader.getFont().drawString(MainApp.WINDOW_WIDTH / 2 - fontLoader.getFont().getWidth("Hello") / 2, MainApp.WINDOW_HEIGHT / 2 - fontLoader.getFont().getHeight("Hello") / 2, "Hello");
         area.render(gc, g);
     }
 }
