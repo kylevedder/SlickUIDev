@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.util.ResourceLoader;
@@ -52,12 +51,12 @@ public class FontLoader
         catch (SlickException ex)
         {
             Logger.getLogger(FontLoader.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
     }
 
     /**
      * Gets the font of the initial size.
-     * 
+     *
      * Note: If loaded incorrectly, font may be null.
      *
      * @return
@@ -71,7 +70,7 @@ public class FontLoader
      * Gets a new sized font based on the AWT Font.
      *
      * Note: If loaded incorrectly, font may be null.
-     * 
+     *
      * @param size
      * @return
      */
@@ -85,6 +84,28 @@ public class FontLoader
         {
             return null;
         }
+    }
+
+    /**
+     * Sets the font color.
+     * @param font
+     * @param color
+     * @return 
+     */
+     @SuppressWarnings("unchecked")//STFU about the add ColorEffect
+    public static UnicodeFont setFontColor(UnicodeFont font, java.awt.Color color)
+    {
+        try
+        {
+            font.getEffects().add(new ColorEffect(java.awt.Color.yellow));
+            font.addAsciiGlyphs();
+            font.loadGlyphs();
+        }
+        catch (SlickException ex)
+        {
+            Logger.getLogger(FontLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return font;
     }
 
 }

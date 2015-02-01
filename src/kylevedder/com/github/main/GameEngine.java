@@ -12,6 +12,8 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import kylevedder.com.github.gui.FontLoader;
+import kylevedder.com.github.gui.GUIButton;
+import kylevedder.com.github.gui.GUIMouseOverContent;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -48,9 +50,9 @@ public class GameEngine
 
     TextField field;
     TextField field2;
-    MouseOverArea area;
 
-    FontLoader fontLoader = null;    
+    FontLoader fontLoader = null;
+    GUIButton button;
 
     public GameEngine()
     {
@@ -64,11 +66,12 @@ public class GameEngine
      * @throws SlickException
      */
     public void init(GameContainer gc) throws SlickException
-    {       
-        fontLoader = new FontLoader("font/expressway/expressway.ttf", 256f);
-        area = new MouseOverArea(gc, new Image("images/ball.png").getScaledCopy(5), new Rectangle(20, 20, 20, 20));
-        area.setNormalImage(new Image("images/ball.png").getScaledCopy(3));
-
+    {
+        fontLoader = new FontLoader("font/youre-gone/YoureGone.ttf", 128f);
+        GUIMouseOverContent content = new GUIMouseOverContent("Hello", "World", "images/buttons/normal.png", "images/buttons/hover.png", "images/buttons/click.png");
+        button = new GUIButton(gc, MainApp.WINDOW_WIDTH / 2, MainApp.WINDOW_HEIGHT / 2, content.getBaseImage().getWidth(), content.getBaseImage().getHeight(), content);
+        button.setFont(fontLoader.getSizedFont(12f), fontLoader.getSizedFont(14f));
+        button.setFontColors(java.awt.Color.yellow, java.awt.Color.yellow);
         System.out.println("Game Loaded...");
     }
 
@@ -81,6 +84,11 @@ public class GameEngine
      */
     public void update(GameContainer gc, int deltaTime) throws SlickException
     {
+        if (button.isButtonClicked())
+        {
+            System.out.println("clicked");
+            button.resetButtonClicked();
+        }
     }
 
     /**
@@ -96,9 +104,6 @@ public class GameEngine
         //backgrond
         g.setBackground(new Color(103, 194, 240));
         g.setColor(Color.red);
-        
-//        g.drawString("Hello", MainApp.WINDOW_WIDTH/2,  MainApp.WINDOW_HEIGHT/2);
-        fontLoader.getFont().drawString(MainApp.WINDOW_WIDTH / 2 - fontLoader.getFont().getWidth("Hello") / 2, MainApp.WINDOW_HEIGHT / 2 - fontLoader.getFont().getHeight("Hello") / 2, "Hello");
-        area.render(gc, g);
+        button.render(g);
     }
 }
