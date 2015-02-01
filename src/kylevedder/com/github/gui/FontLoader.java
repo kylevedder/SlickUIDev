@@ -78,7 +78,7 @@ public class FontLoader
     {
         if (awtFont != null)
         {
-            return new UnicodeFont(awtFont.deriveFont(32f));
+            return new UnicodeFont(awtFont.deriveFont(size));
         }
         else
         {

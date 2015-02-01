@@ -47,7 +47,8 @@ public class MainApp extends BasicGame
         app.setMouseGrabbed(false);
         app.setVSync(true);        
         app.setTargetFrameRate(60);  
-        app.setSmoothDeltas(true);
+        app.setShowFPS(false);
+        app.setSmoothDeltas(true);        
         app.start();        
         return app;
     }

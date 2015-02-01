@@ -23,26 +23,29 @@ import org.newdawn.slick.gui.MouseOverArea;
  */
 public class GUIButton
 {
+
     private GUIRectangle rect;
     private GUIMouseOverContent content;
     private TextField field = null;
     private MouseOverArea area = null;
-    
+
     private GameContainer gc = null;
-    
+
     private UnicodeFont regularFont = null;
     private UnicodeFont hoverFont = null;
-    
+
     private boolean buttonClicked = false;
     
+    private float vertPadding = 0f;
+    private float horzPadding = 0f;
 
     public GUIButton(GameContainer gc, float centerX, float centerY, float width, float height, GUIMouseOverContent content)
     {
-        this.gc = gc;        
+        this.gc = gc;
         this.rect = new GUIRectangle(centerX, centerY, width, height);
         this.content = content;
-        this.area = new MouseOverArea(gc, this.content.getBaseImage(), this.rect.getRectangle());        
-        this.area.setMouseOverImage(content.getHoverImage());        
+        this.area = new MouseOverArea(gc, this.content.getBaseImage(), this.rect.getRectangle());
+        this.area.setMouseOverImage(content.getHoverImage());
         this.area.setMouseDownImage(content.getClickImage());
         this.regularFont = new UnicodeFont(new JLabel().getFont());
         this.hoverFont = new UnicodeFont(new JLabel().getFont());
@@ -52,26 +55,42 @@ public class GUIButton
 
             @Override
             public void componentActivated(AbstractComponent source)
-            {                    
+            {
                 buttonClicked = true;
             }
         });
     }
 
     /**
+     * Sets the padding for the button text.
+     * <p>
+     * Positive values shift text right and down, negative values shift values left and down
+     * </p.
+     * @param horzPadding
+     * @param vertPadding 
+     */
+    public void setTextPadding(float horzPadding, float vertPadding)
+    {
+        this.horzPadding = horzPadding;
+        this.vertPadding = vertPadding;
+    }
+    
+    /**
      * Sets the defaultFont for the button.
-     * @param font 
+     *
+     * @param font
      */
     public void setFont(UnicodeFont regularFont, UnicodeFont hoverFont)
     {
         this.regularFont = regularFont;
         this.hoverFont = hoverFont;
-    }
-    
+    }        
+
     /**
      * Sets the font colors.
+     *
      * @param defaultColor
-     * @param hoverColor 
+     * @param hoverColor
      */
     public void setFontColors(Color defaultColor, Color hoverColor)
     {
@@ -81,13 +100,14 @@ public class GUIButton
 
     /**
      * Checks if the button is clicked.
-     * @return 
+     *
+     * @return
      */
     public boolean isButtonClicked()
     {
         return buttonClicked;
     }
-    
+
     /**
      * Resets the state of the button.
      */
@@ -95,30 +115,29 @@ public class GUIButton
     {
         buttonClicked = false;
     }
-    
-    
-    
+
     /**
      * Renders the GUIButton
-     * @param g 
+     *
+     * @param g
      */
     public void render(Graphics g)
     {
         this.area.render(gc, g);
-        if(this.area.isMouseOver())
+        if (this.area.isMouseOver())
         {
             this.hoverFont.drawString(
-                    this.area.getX(), 
-                    this.area.getY(), 
+                    this.area.getX() + this.area.getWidth() / 2 - this.hoverFont.getWidth(this.content.getHoverText()) / 2 + this.horzPadding,
+                    this.area.getY() + this.area.getHeight() / 2 - this.hoverFont.getHeight(this.content.getHoverText()) / 2 + this.vertPadding,
                     this.content.getHoverText());
         }
         else
         {
             this.regularFont.drawString(
-                    this.area.getX(), 
-                    this.area.getY(), 
+                    this.area.getX() + this.area.getWidth() / 2 - this.regularFont.getWidth(this.content.getBaseText()) / 2 + this.horzPadding,
+                    this.area.getY() + this.area.getHeight() / 2 - this.regularFont.getHeight(this.content.getBaseText()) / 2 + this.vertPadding,
                     this.content.getBaseText());
-        }        
+        }
     }
-    
+
 }
