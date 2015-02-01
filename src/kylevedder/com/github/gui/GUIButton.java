@@ -30,7 +30,7 @@ public class GUIButton
     
     private GameContainer gc = null;
     
-    private UnicodeFont defaultFont = null;
+    private UnicodeFont regularFont = null;
     private UnicodeFont hoverFont = null;
     
     private boolean buttonClicked = false;
@@ -44,7 +44,7 @@ public class GUIButton
         this.area = new MouseOverArea(gc, this.content.getBaseImage(), this.rect.getRectangle());        
         this.area.setMouseOverImage(content.getHoverImage());        
         this.area.setMouseDownImage(content.getClickImage());
-        this.defaultFont = new UnicodeFont(new JLabel().getFont());
+        this.regularFont = new UnicodeFont(new JLabel().getFont());
         this.hoverFont = new UnicodeFont(new JLabel().getFont());
         this.buttonClicked = false;
         this.area.addListener(new ComponentListener()
@@ -62,9 +62,9 @@ public class GUIButton
      * Sets the defaultFont for the button.
      * @param font 
      */
-    public void setFont(UnicodeFont defaultFont, UnicodeFont hoverFont)
+    public void setFont(UnicodeFont regularFont, UnicodeFont hoverFont)
     {
-        this.defaultFont = defaultFont;
+        this.regularFont = regularFont;
         this.hoverFont = hoverFont;
     }
     
@@ -75,7 +75,7 @@ public class GUIButton
      */
     public void setFontColors(Color defaultColor, Color hoverColor)
     {
-        this.defaultFont = FontLoader.setFontColor(defaultFont, defaultColor);
+        this.regularFont = FontLoader.setFontColor(regularFont, defaultColor);
         this.hoverFont = FontLoader.setFontColor(hoverFont, hoverColor);
     }
 
@@ -108,14 +108,14 @@ public class GUIButton
         if(this.area.isMouseOver())
         {
             this.hoverFont.drawString(
-                    this.area.getX() + this.hoverFont.getWidth(this.content.getBaseText())/2, 
+                    this.area.getX(), 
                     this.area.getY(), 
                     this.content.getHoverText());
         }
         else
         {
-            this.defaultFont.drawString(
-                    this.area.getX() + this.defaultFont.getWidth(this.content.getHoverText())/2, 
+            this.regularFont.drawString(
+                    this.area.getX(), 
                     this.area.getY(), 
                     this.content.getBaseText());
         }        

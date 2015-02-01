@@ -40,7 +40,7 @@ public class StateManager
         Iterator<BasicState> itr = map.values().iterator();
         while (itr.hasNext())
         {
-            itr.next().init(gc);
+            itr.next().init(gc, this);
         }
     }
     

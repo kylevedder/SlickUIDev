@@ -19,14 +19,16 @@ import org.newdawn.slick.SlickException;
  *
  * @author Kyle
  */
-public class StateMainMenu extends BasicState
+public class StateMainMenu implements BasicState
 {
     FontLoader fontLoader = null;
     GUIButton button;
+    private StateManager stateManager = null;
     
     
-    public void init(GameContainer gc) throws SlickException
+    public void init(GameContainer gc, StateManager stateManager) throws SlickException
     {        
+        this.stateManager = stateManager;
         fontLoader = new FontLoader("font/youre-gone/YoureGone.ttf", 128f);
         GUIMouseOverContent content = new GUIMouseOverContent("Hello", "World", "images/buttons/normal.png", "images/buttons/hover.png", "images/buttons/click.png");
         button = new GUIButton(gc, MainApp.WINDOW_WIDTH / 2, MainApp.WINDOW_HEIGHT / 2, content.getBaseImage().getWidth(), content.getBaseImage().getHeight(), content);
@@ -38,8 +40,8 @@ public class StateMainMenu extends BasicState
     {
         if (button.isButtonClicked())
         {
-            System.out.println("clicked");
             button.resetButtonClicked();
+            stateManager.setState(State.EXIT);
         }
     }
 

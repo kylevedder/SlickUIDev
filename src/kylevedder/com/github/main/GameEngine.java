@@ -17,6 +17,7 @@ import kylevedder.com.github.gui.GUIButton;
 import kylevedder.com.github.gui.GUIMouseOverContent;
 import kylevedder.com.github.states.BasicState;
 import kylevedder.com.github.states.State;
+import kylevedder.com.github.states.StateExitMenu;
 import kylevedder.com.github.states.StateMainMenu;
 import kylevedder.com.github.states.StateManager;
 import org.newdawn.slick.Color;
@@ -62,6 +63,7 @@ public class GameEngine
     public StateManager stateManager = null;
     
     public StateMainMenu mainMenu = null;
+    public StateExitMenu exitMenu = null;
     
     public GameEngine()
     {
@@ -77,8 +79,10 @@ public class GameEngine
     public void init(GameContainer gc) throws SlickException
     {       
         mainMenu = new StateMainMenu();
+        exitMenu = new StateExitMenu();
         HashMap<State, BasicState> map = new HashMap<State, BasicState>();
         map.put(State.MENU, mainMenu);
+        map.put(State.EXIT, exitMenu);
         stateManager = new StateManager(State.MENU, gc, map);
         stateManager.initAll(gc);
         System.out.println("Game Loaded...");
@@ -93,7 +97,7 @@ public class GameEngine
      */
     public void update(GameContainer gc, int deltaTime) throws SlickException
     {
-
+        stateManager.updateCurrent(gc, deltaTime);
     }
 
     /**
@@ -104,6 +108,6 @@ public class GameEngine
      */
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
-        
+        stateManager.renderCurrent(gc, g);
     }
 }

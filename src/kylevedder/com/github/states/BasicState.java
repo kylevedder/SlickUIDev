@@ -13,15 +13,12 @@ import org.newdawn.slick.SlickException;
  *
  * @author Kyle
  */
-public class BasicState
+public interface BasicState
 {
-    public void init(GameContainer gc) throws SlickException
-    {                
-    }
-    public void update(GameContainer gc, int deltaTime) throws SlickException
-    {
-    }
-    public void render(GameContainer gc, Graphics g) throws SlickException
-    {
-    }
+
+    public void init(GameContainer gc, StateManager stateManager) throws SlickException;
+
+    public void update(GameContainer gc, int deltaTime) throws SlickException;
+
+    public void render(GameContainer gc, Graphics g) throws SlickException;
 }
