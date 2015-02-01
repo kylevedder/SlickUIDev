@@ -5,6 +5,7 @@
  */
 package kylevedder.com.github.main;
 
+import kylevedder.com.github.states.StateMainMenu;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -59,7 +60,7 @@ public class MainApp extends BasicGame
     //Main hooks for slick
     @Override
     public void init(GameContainer gc) throws SlickException
-    {        
+    {                
         gameEngine = new GameEngine();
         gameEngine.init(gc);
     }

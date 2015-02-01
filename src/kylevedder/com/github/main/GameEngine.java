@@ -9,11 +9,16 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import kylevedder.com.github.gui.FontLoader;
 import kylevedder.com.github.gui.GUIButton;
 import kylevedder.com.github.gui.GUIMouseOverContent;
+import kylevedder.com.github.states.BasicState;
+import kylevedder.com.github.states.State;
+import kylevedder.com.github.states.StateMainMenu;
+import kylevedder.com.github.states.StateManager;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -54,9 +59,13 @@ public class GameEngine
     FontLoader fontLoader = null;
     GUIButton button;
 
+    public StateManager stateManager = null;
+    
+    public StateMainMenu mainMenu = null;
+    
     public GameEngine()
     {
-
+        
     }
 
     /**
@@ -66,12 +75,12 @@ public class GameEngine
      * @throws SlickException
      */
     public void init(GameContainer gc) throws SlickException
-    {
-        fontLoader = new FontLoader("font/youre-gone/YoureGone.ttf", 128f);
-        GUIMouseOverContent content = new GUIMouseOverContent("Hello", "World", "images/buttons/normal.png", "images/buttons/hover.png", "images/buttons/click.png");
-        button = new GUIButton(gc, MainApp.WINDOW_WIDTH / 2, MainApp.WINDOW_HEIGHT / 2, content.getBaseImage().getWidth(), content.getBaseImage().getHeight(), content);
-        button.setFont(fontLoader.getSizedFont(12f), fontLoader.getSizedFont(14f));
-        button.setFontColors(java.awt.Color.yellow, java.awt.Color.yellow);
+    {       
+        mainMenu = new StateMainMenu();
+        HashMap<State, BasicState> map = new HashMap<State, BasicState>();
+        map.put(State.MENU, mainMenu);
+        stateManager = new StateManager(State.MENU, gc, map);
+        stateManager.initAll(gc);
         System.out.println("Game Loaded...");
     }
 
@@ -84,11 +93,7 @@ public class GameEngine
      */
     public void update(GameContainer gc, int deltaTime) throws SlickException
     {
-        if (button.isButtonClicked())
-        {
-            System.out.println("clicked");
-            button.resetButtonClicked();
-        }
+
     }
 
     /**
@@ -99,11 +104,6 @@ public class GameEngine
      */
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
-        //clears
-        g.clear();
-        //backgrond
-        g.setBackground(new Color(103, 194, 240));
-        g.setColor(Color.red);
-        button.render(g);
+        
     }
 }
