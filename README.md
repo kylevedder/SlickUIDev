@@ -1,3 +1,3 @@
-Tank Game Two
+Slick UI Dev
 =================
-This is a top down Tank Shooter written using Slick2D for graphics display. This is based on Tank Game, just rewritten to be slightly less terrible.
+This is a project for developing a UI for Slick2D based games.
