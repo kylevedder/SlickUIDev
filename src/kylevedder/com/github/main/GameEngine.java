@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import kylevedder.com.github.gui.FontLoader;
 import kylevedder.com.github.gui.GUIButton;
 import kylevedder.com.github.gui.GUIMouseOverContent;
+import kylevedder.com.github.music.MusicPlayer;
 import kylevedder.com.github.states.BasicState;
 import kylevedder.com.github.states.State;
 import kylevedder.com.github.states.StateExitMenu;
@@ -24,6 +25,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.UnicodeFont;
@@ -64,6 +66,7 @@ public class GameEngine
     
     public StateMainMenu mainMenu = null;
     public StateExitMenu exitMenu = null;
+    public MusicPlayer musicPlayer = null;
     
     public GameEngine()
     {
@@ -78,6 +81,8 @@ public class GameEngine
      */
     public void init(GameContainer gc) throws SlickException
     {       
+        musicPlayer = new MusicPlayer("music/Ouroboros.ogg", "music/Club_Diver.ogg");
+        musicPlayer.startMenuMusic();
         mainMenu = new StateMainMenu();
         exitMenu = new StateExitMenu();
         HashMap<State, BasicState> map = new HashMap<State, BasicState>();
