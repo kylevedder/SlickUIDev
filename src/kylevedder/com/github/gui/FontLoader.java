@@ -93,6 +93,7 @@ public class FontLoader
      * Sets the font color
      * @param color 
      */
+    @SuppressWarnings("unchecked")//STFU about the add ColorEffect
     public void setColor(Color color)
     {
         try
