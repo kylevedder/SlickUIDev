@@ -5,6 +5,7 @@
  */
 package kylevedder.com.github.states;
 
+import kylevedder.com.github.music.MusicPlayer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -16,7 +17,7 @@ import org.newdawn.slick.SlickException;
 public interface BasicState
 {
 
-    public void init(GameContainer gc, StateManager stateManager) throws SlickException;
+    public void init(GameContainer gc, StateManager stateManager, MusicPlayer musicPlayer) throws SlickException;
 
     public void update(GameContainer gc, int deltaTime) throws SlickException;
 

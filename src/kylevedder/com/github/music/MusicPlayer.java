@@ -14,6 +14,7 @@ import org.newdawn.slick.SlickException;
  */
 public class MusicPlayer
 {
+
     private Music menuMusic;
     private Music gameMusic;
 
@@ -22,44 +23,50 @@ public class MusicPlayer
         this.menuMusic = new Music(menuMusic);
         this.gameMusic = new Music(gameMusic);
     }
-    
+
     /**
      * Starts menu music and stops all other music.
      */
     public void startMenuMusic()
     {
-        if(this.gameMusic.playing())
+        if (this.gameMusic.playing())
         {
             this.gameMusic.stop();
-        }        
-        this.menuMusic.loop();
+        }
+        if (!this.menuMusic.playing())
+        {
+            this.menuMusic.loop();
+        }
     }
-    
+
     /**
      * Starts game music and stops all other music.
      */
     public void startGameMusic()
     {
-        if(this.menuMusic.playing())
+        if (this.menuMusic.playing())
         {
-            this.menuMusic.stop();            
+            this.menuMusic.stop();
         }
-        this.menuMusic.loop();
+        if (!this.gameMusic.playing())
+        {
+            this.gameMusic.loop();
+        }
     }
-    
+
     /**
      * Stops all music.
      */
     public void stopMusic()
     {
-        if(this.menuMusic.playing())
+        if (this.menuMusic.playing())
         {
-            this.menuMusic.stop();            
+            this.menuMusic.stop();
         }
-        if(this.gameMusic.playing())
+        if (this.gameMusic.playing())
         {
             this.gameMusic.stop();
         }
     }
-    
+
 }

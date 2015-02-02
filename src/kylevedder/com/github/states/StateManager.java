@@ -5,9 +5,9 @@
  */
 package kylevedder.com.github.states;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import kylevedder.com.github.music.MusicPlayer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -22,26 +22,16 @@ public class StateManager
     private State state;
     private HashMap<State, BasicState> map;
     private BasicState currentState = null;
+    private MusicPlayer musicPlayer = null;
+    private GameContainer gc = null;
 
-    public StateManager(State state, GameContainer gc, HashMap<State, BasicState> map) throws SlickException
+    public StateManager(State state, GameContainer gc, HashMap<State, BasicState> map, MusicPlayer musicPlayer) throws SlickException
     {
+        this.gc = gc;
+        this.musicPlayer = musicPlayer;
         this.state = state;
         this.map = map;
-        this.currentState = map.get(this.state);
-    }
-
-    /**
-     * Initializes all states.
-     * @param gc
-     * @throws SlickException 
-     */
-    public void initAll(GameContainer gc) throws SlickException
-    {
-        Iterator<BasicState> itr = map.values().iterator();
-        while (itr.hasNext())
-        {
-            itr.next().init(gc, this);
-        }
+        this.setState(state);
     }
     
     /**
@@ -71,10 +61,11 @@ public class StateManager
      *
      * @param state
      */
-    public void setState(State state)
+    public void setState(State state) throws SlickException
     {
         this.state = state;
         this.currentState = map.get(this.state);
+        this.currentState.init(gc, this, musicPlayer);
     }
 
     /**

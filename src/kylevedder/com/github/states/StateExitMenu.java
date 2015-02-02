@@ -10,6 +10,7 @@ import kylevedder.com.github.gui.GUIButton;
 import kylevedder.com.github.gui.GUIMouseOverContent;
 import kylevedder.com.github.main.GameEngine;
 import kylevedder.com.github.main.MainApp;
+import kylevedder.com.github.music.MusicPlayer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -26,12 +27,16 @@ public class StateExitMenu implements BasicState
     GUIButton exitButton;
     GUIButton mainMenuButton;
     private StateManager stateManager = null;
+    private MusicPlayer musicPlayer = null;
 
     private final float BUTTON_SEPERATOR_WIDTH = 10f;
 
-    public void init(GameContainer gc, StateManager stateManager) throws SlickException
+    public void init(GameContainer gc, StateManager stateManager, MusicPlayer musicPlayer)
     {
         this.stateManager = stateManager;
+        this.musicPlayer = musicPlayer;        
+        this.musicPlayer.startGameMusic();
+        
         fontLoader = new FontLoader("font/youre-gone/YoureGone.ttf", 128f);        
 
         GUIMouseOverContent exitContent = new GUIMouseOverContent("Exit", "Exit", "images/buttons/normal.png", "images/buttons/hover.png", "images/buttons/hover.png");
@@ -70,5 +75,7 @@ public class StateExitMenu implements BasicState
         g.setColor(Color.red);
         exitButton.render(g);
         mainMenuButton.render(g);
-    }
+    }    
+
+    
 }

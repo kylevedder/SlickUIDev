@@ -81,15 +81,13 @@ public class GameEngine
      */
     public void init(GameContainer gc) throws SlickException
     {       
-        musicPlayer = new MusicPlayer("music/Ouroboros.ogg", "music/Club_Diver.ogg");
-        musicPlayer.startMenuMusic();
+        musicPlayer = new MusicPlayer("music/Ouroboros.ogg", "music/Club_Diver.ogg");        
         mainMenu = new StateMainMenu();
         exitMenu = new StateExitMenu();
         HashMap<State, BasicState> map = new HashMap<State, BasicState>();
         map.put(State.MENU, mainMenu);
         map.put(State.EXIT, exitMenu);
-        stateManager = new StateManager(State.MENU, gc, map);
-        stateManager.initAll(gc);
+        stateManager = new StateManager(State.MENU, gc, map, musicPlayer);        
         System.out.println("Game Loaded...");
     }
 

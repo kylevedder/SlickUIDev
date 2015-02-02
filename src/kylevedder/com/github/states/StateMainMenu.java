@@ -10,6 +10,7 @@ import kylevedder.com.github.gui.GUIButton;
 import kylevedder.com.github.gui.GUIMouseOverContent;
 import kylevedder.com.github.main.GameEngine;
 import kylevedder.com.github.main.MainApp;
+import kylevedder.com.github.music.MusicPlayer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -27,9 +28,12 @@ public class StateMainMenu implements BasicState
     FontLoader fontLoader = null;
     GUIButton button;
     private StateManager stateManager = null;
+    private MusicPlayer musicPlayer = null;
 
-    public void init(GameContainer gc, StateManager stateManager) throws SlickException
+    public void init(GameContainer gc, StateManager stateManager, MusicPlayer musicPlayer) throws SlickException
     {        
+        this.musicPlayer = musicPlayer;        
+        this.musicPlayer.startMenuMusic();
         this.stateManager = stateManager;
         fontLoader = new FontLoader("font/youre-gone/YoureGone.ttf", 128f);
         fontLoader.setColor(java.awt.Color.red);
