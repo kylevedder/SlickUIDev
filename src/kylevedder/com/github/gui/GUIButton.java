@@ -94,8 +94,8 @@ public class GUIButton
      */
     public void setFontColors(Color defaultColor, Color hoverColor)
     {
-        this.regularFont = FontLoader.setFontColor(regularFont, defaultColor);
-        this.hoverFont = FontLoader.setFontColor(hoverFont, hoverColor);
+        this.regularFont = FontLoader.modifyFontColor(regularFont, defaultColor);
+        this.hoverFont = FontLoader.modifyFontColor(hoverFont, hoverColor);
     }
 
     /**

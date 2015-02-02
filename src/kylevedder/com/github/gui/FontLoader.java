@@ -5,6 +5,7 @@
  */
 package kylevedder.com.github.gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
@@ -25,10 +26,12 @@ public class FontLoader
 
     private UnicodeFont uFont = null;
     private Font awtFont = null;
+    private float size = 0f;
 
     @SuppressWarnings("unchecked")//STFU about the add ColorEffect
     public FontLoader(String fontPath, float defaultSize)
     {
+        this.size = defaultSize;
         InputStream inputStream = ResourceLoader.getResourceAsStream(fontPath);
 
         try
@@ -85,6 +88,25 @@ public class FontLoader
             return null;
         }
     }
+    
+    /**
+     * Sets the font color
+     * @param color 
+     */
+    public void setColor(Color color)
+    {
+        try
+        {
+            this.uFont = new UnicodeFont(awtFont.deriveFont(this.size));            
+            this.uFont.getEffects().add(new ColorEffect(color));
+            this.uFont.addAsciiGlyphs();
+            this.uFont.loadGlyphs();
+        }
+        catch (SlickException ex)
+        {
+            Logger.getLogger(FontLoader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * Sets the font color.
@@ -93,11 +115,12 @@ public class FontLoader
      * @return 
      */
      @SuppressWarnings("unchecked")//STFU about the add ColorEffect
-    public static UnicodeFont setFontColor(UnicodeFont font, java.awt.Color color)
+    public static UnicodeFont modifyFontColor(UnicodeFont font, java.awt.Color color)
     {
         try
-        {
-            font.getEffects().add(new ColorEffect(java.awt.Color.yellow));
+        {            
+            font = new UnicodeFont(font.getFont());
+            font.getEffects().add(new ColorEffect(color));
             font.addAsciiGlyphs();
             font.loadGlyphs();
         }

@@ -29,13 +29,14 @@ public class StateMainMenu implements BasicState
     public void init(GameContainer gc, StateManager stateManager) throws SlickException
     {        
         this.stateManager = stateManager;
-        fontLoader = new FontLoader("font/expressway/expressway.ttf", 128f);
+        fontLoader = new FontLoader("font/youre-gone/YoureGone.ttf", 128f);        
+        fontLoader.setColor(java.awt.Color.red);
         
         GUIMouseOverContent content = new GUIMouseOverContent("Hello", "World", "images/buttons/normal.png", "images/buttons/hover.png", "images/buttons/hover.png");
         
         button = new GUIButton(gc, MainApp.WINDOW_WIDTH / 2, MainApp.WINDOW_HEIGHT / 2, content.getBaseImage().getWidth(), content.getBaseImage().getHeight(), content);
         button.setFont(fontLoader.getSizedFont(32f), fontLoader.getSizedFont(32f));
-        button.setFontColors(java.awt.Color.yellow, java.awt.Color.yellow);
+        button.setFontColors(java.awt.Color.magenta, java.awt.Color.magenta);
         button.setTextPadding(0, -5);
     }
     

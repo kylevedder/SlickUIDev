@@ -32,7 +32,7 @@ public class StateExitMenu implements BasicState
     public void init(GameContainer gc, StateManager stateManager) throws SlickException
     {
         this.stateManager = stateManager;
-        fontLoader = new FontLoader("font/expressway/expressway.ttf", 128f);
+        fontLoader = new FontLoader("font/youre-gone/YoureGone.ttf", 128f);        
 
         GUIMouseOverContent exitContent = new GUIMouseOverContent("Exit", "Exit", "images/buttons/normal.png", "images/buttons/hover.png", "images/buttons/hover.png");
         GUIMouseOverContent mainMenuContent = new GUIMouseOverContent("Main Menu", "Main Menu", "images/buttons/normal.png", "images/buttons/hover.png", "images/buttons/hover.png");
